@@ -2,11 +2,6 @@
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
 
-<xsl:character-map name="angle-brackets">
-    <xsl:output-character character="&lt;" string="&lt;"/>
-    <xsl:output-character character="&gt;" string="&gt;"/>
-</xsl:character-map>
-
 <xsl:template match="/">
   <html>
   <head>

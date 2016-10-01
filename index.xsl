@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
+
+<xsl:character-map name="angle-brackets">
+    <xsl:output-character character="&lt;" string="&lt;"/>
+    <xsl:output-character character="&gt;" string="&gt;"/>
+</xsl:character-map>
 
 <xsl:template match="/">
   <html>
@@ -24,6 +29,9 @@
         .subitem {
             background-color:#ccc;
         }
+        th {
+            text-align:left;
+        }
     </style>
   </head>
   <body>
@@ -41,6 +49,8 @@
 	  <td>
         <xsl:apply-templates select="./pages"/>
 	  </td>
+      <td><xsl:value-of select="@translation"/></td>
+      <td><xsl:apply-templates select="@link"/></td>
     </tr>
       <xsl:for-each select="./subitem">
         <tr class="subitem">
@@ -49,12 +59,26 @@
           <td>
           <xsl:apply-templates/>
           </td>
+          <td><xsl:value-of select="@translation"/></td>
+          <td><xsl:apply-templates select="@link"/></td>
         </tr>
       </xsl:for-each>
     </xsl:for-each>
   </table>
   </body>
   </html>
+</xsl:template>
+
+<xsl:template match="@link">
+  <xsl:choose>
+    <xsl:when test="@link != ''">
+      <xsl:variable name="link" select="@link"/>
+        <a href="{$link}">на форум</a>
+      </xsl:when>
+    <xsl:otherwise>
+      <a href="http://r2u.org.ua/forum/posting.php?mode=post&amp;f=51">нове</a>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template match="pages/*">

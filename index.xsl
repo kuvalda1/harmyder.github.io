@@ -44,7 +44,8 @@
 	  <td>
         <xsl:apply-templates select="./pages"/>
 	  </td>
-      <td><xsl:value-of select="@translation"/></td>
+      <xsl:variable name="quality" select="@quality"/>
+      <td style="background-color: {$quality};"><xsl:value-of select="@translation"/></td>
       <td><xsl:apply-templates select="@link"/></td>
     </tr>
       <xsl:for-each select="./subitem">
@@ -54,7 +55,8 @@
           <td>
           <xsl:apply-templates/>
           </td>
-          <td><xsl:value-of select="@translation"/></td>
+          <xsl:variable name="quality" select="@quality"/>
+          <td style="background-color: {$quality};"><xsl:value-of select="@translation"/></td>
           <td><xsl:apply-templates select="@link"/></td>
         </tr>
       </xsl:for-each>
@@ -68,8 +70,8 @@
   <xsl:choose>
     <xsl:when test="@link != ''">
       <xsl:variable name="link" select="@link"/>
-        <a href="{$link}">на форум</a>
-      </xsl:when>
+      <a href="{$link}">на форум</a>
+    </xsl:when>
     <xsl:otherwise>
       <a href="http://r2u.org.ua/forum/posting.php?mode=post&amp;f=51">нове</a>
     </xsl:otherwise>
